@@ -1,0 +1,106 @@
+html {
+	font-family: ubuntu;
+	background-image: url('images/background.png');
+	background-size: cover;
+}
+
+body {
+	text-align: center;
+	height: 100%;
+	position: fixed;
+	width: 100%;
+	margin: 0px;
+}
+#videoCanvas {
+	/* Always stretch the canvas to 640x480, regardless of its
+	internal size. */
+	width: 640px;
+	height: 480px;
+}
+
+.buttonArea{
+	position: fixed;
+	text-align: center;
+	background-color: rgba(180, 180, 180, 0.5);
+	padding: 0px;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+#bAVitesse{
+	width: 70px;
+	height: 300px;
+	left: 50px;
+	bottom: 0px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+#bAAngle{
+	width: 300px;
+	height: 70px;
+	right: 0px;
+	bottom: 50px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.button{
+	width: 70px;
+	height: 70px;
+	background-color: rgba(50, 50, 50, 1);
+	border-radius: 50px;
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+#bVitesse{
+	top: 100px;
+}
+
+#bAngle{
+	left: 100px;
+}
+
+#paramsView{
+	position: fixed;
+	z-index: 1000;
+	width: 100%;
+	min-height: 80%;
+	margin: 0px;
+	background-color: white;
+	padding: 5%;
+	padding-left: 15%;
+	padding-right: 15%;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+#toogleParams{
+	position: fixed;
+	z-index: 1001;
+	top: 15px;
+	right: 15px;
+}
+
+#paramsContainer{
+	text-align: left;
+	margin: 5%;
+	line-height: 2;
+	font-size: 24px;
+}
+
+.switchLabel{
+	padding-right: 10px;
+}
+
+.range-field{
+	display: inline;
+	margin-left: 15px;
+}
+
+#phareRange{
+	width: 50%;
+	margin: 0px;
+	vertical-align: middle;
+}

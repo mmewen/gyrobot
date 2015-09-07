@@ -1,0 +1,18 @@
+Client :
+- vérifier qu'on est en paysage, qu'on est le seul client connecté
+- menu à gauche
+	- activer/désactiver vidéo
+	(- lancer mode automatique)
+- contrôles
+(- record)
+
+
+Serveur :
+- main.js :
+	- ouvrir le flux webcam -> serveur et serveur -> client
+	- ouvrir la connexion à l'Arduino
+	- ouvrir un ws pour les commandes venant du webclient
+- Arduino :
+	- allumer une LED une fois que tout est allumé
+	- IN : vitesse et "angle" (-512 -> +512)
+	- set vitesse de chaque moteur

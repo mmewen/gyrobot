@@ -1,0 +1,27 @@
+{
+  "name": "Gyrobot",
+  "version": "0.1.0",
+  "description": "Télécommande d'un robot fait maison",
+  "dependencies": {
+    "ffi": "^1.3.0",
+    "johnny-five": "~0.8.33",
+    "keypress": "^0.2.1",
+    "log4js": "~0.6.22",
+    "serialport": "~1.4.9",
+    "socket.io": "~1.2.1",
+    "socket.io-client": "~1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmewen/gyrobot.git"
+  },
+  "author": "Mewen MICHEL",
+  "license": "MIT license",
+  "bugs": {
+    "url": "https://github.com/mmewen/gyrobot/issues"
+  }
+}

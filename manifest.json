@@ -1,0 +1,20 @@
+{
+  "lang": "fr",
+  "name": "Télécommande d'un véloce robot",
+  "short_name": "Gyrobot",
+  "icons": [{
+        "src": "images/lowres",
+        "sizes": "64x64"
+      }, {
+        "src": "images/hd_small",
+        "sizes": "64x64"
+      }, {
+        "src": "images/hd_hi.png",
+        "sizes": "128x128"
+      }],
+  "scope": "dev/gyrobot/",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "aliceblue"
+}
