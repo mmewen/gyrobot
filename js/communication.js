@@ -22,14 +22,18 @@ function transmit(name, params){
 
 var dragVitesse = function( event, pointer, moveVector ){
 	var topPos = (parseInt($(this).data("startTop")) - parseInt($(this).position().top));
-	transmit("speed", { value: topPos });
-	$("#echoSpeed").text( topPos );
+	transmit("speed", {
+		value: 510*topPos / ($("#bAVitesse").height() - $("#bVitesse").height())
+	});
+	$("#echoSpeed").text( 510*topPos/($("#bAVitesse").height() - $("#bVitesse").height()) );
 }
 
 var dragAngle = function( event, pointer, moveVector ){
 	var leftPos = (parseInt($(this).data("startLeft")) - parseInt($(this).position().left));
-	transmit("angle", { value: leftPos });
-	$("#echoAngle").text( leftPos );
+	transmit("angle", {
+		value: 510*leftPos / ($("#bAAngle").width() - $("#bAngle").width())
+	});
+	$("#echoAngle").text( 510*leftPos/($("#bAAngle").width() - $("#bAngle").width()) );
 }
 
 $("#videoSwitch").on("change", function(){
@@ -65,6 +69,10 @@ var stop = function( event, pointer, moveVector ){
 		left: $(this).data("startLeft"),
 		top: $(this).data("startTop")
 	}, 500);
+	transmit("speed", { value: 0 });
+	transmit("angle", { value: 0 });
+	$("#echoSpeed").text( 0 );
+	$("#echoAngle").text( 0 );
 }
 
 var $vitesseDragabilly = $('#bVitesse').draggabilly( { containment: true } );

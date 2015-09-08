@@ -6,7 +6,7 @@
 
 
 	// ===== ARDUINO MANAGER =====
-	// var arduino = new (require('arduino.class.js'))();
+	var arduino = new (require('./arduino.class.js'))();
 
 
 	// ===== STREAM MANAGER =====
@@ -89,12 +89,12 @@
 						// arduino.lightPow(data.params.value);
 					break;
 					case "angle":
-						logger.debug("Angle : " + data.params.value);
-						// todo : gestion angle
+						// logger.debug("Angle : " + data.params.value);
+						arduino.setAngle(data.params.value);
 					break;
 					case "speed":
-						logger.debug("Vitesse : " + data.params.value);
-						// todo : gestion vitesse
+						// logger.debug("Vitesse : " + data.params.value);
+						arduino.setSpeed(data.params.value);
 					break;
 					default:
 						logger.warn("name '"+data.name+"' non reconnu !");

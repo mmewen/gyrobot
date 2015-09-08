@@ -98,7 +98,7 @@ SocketWebclient = (function () {
 		$('#toogleParams').removeClass('blue');
 	};
 	SocketWebclient.prototype.errorServerNotFound = function () {
-		alert('Server not found at '+this.server_host+'. Please make sure the server is running.');
+		// alert('Server not found at '+this.server_host+'. Please make sure the server is running.');
 		$('#toogleParams').addClass('red');
 		$('#toogleParams').removeClass('blue');
 	};
