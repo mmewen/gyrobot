@@ -7,7 +7,7 @@ module.exports = (function () {
 		// this.statusLed = null;
 		// this.light = null;
 		this.motors = {};
-		this.motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
+		this.motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
 		this.ready = false;
 		this.angle = 0; // 1 left, 0 front, -1 right
 		this.powL = 0;
@@ -21,33 +21,10 @@ module.exports = (function () {
 
 			// this.statusLed = new five.Led(13);
 			// this.light = new five.Led(12);
-			// this.motor[0] = new five.Motor({ // Motor 1
-			// 	pins: { pwm: 11 }
-			// 	data: 8,
-			// 	clock: 4,
-			// 	latch: 12,
-			// 	bits: {
-			// 		a: 2,
-			// 		b: 3
-			// 	}
-			// });
-
-			// this.motor[1] = new five.Motor({ // Motor 2
-			// 	pins: { pwm: 3 }
-			// 	data: 8,
-			// 	clock: 4,
-			// 	latch: 12,
-			// 	bits: {
-			// 		a: 1,
-			// 		b: 4
-			// 	}
-			// });
 
 			this.motors["right"] = new five.Motor(this.motorConfigs.M1);
 			this.motors["left"] = new five.Motor(this.motorConfigs.M2);
 
-			// console.log("Moteurs :");
-			// console.log(this.motors);
 		}.bind(this));
 	}
 
@@ -88,7 +65,7 @@ module.exports = (function () {
 		this.angle = angle/255.; // in [-1; 1], 1 is left, 0 front and -1 right
 		this.powR = Math.min(1, this.angle+1);
 		this.powL = Math.min(1, -this.angle+1);
-		console.log("gauche:"+this.powL+", droite:"+this.powR);
+		// console.log("gauche:"+this.powL+", droite:"+this.powR);
 	};
 
 	return Arduino;
