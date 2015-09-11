@@ -8,24 +8,43 @@ module.exports = (function () {
 		// this.light = null;
 		this.motors = {};
 		this.motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
+		this.accelero = null;
+		this.acceleroReference = null; // angle x par défaut
+
 		this.ready = false;
+
 		this.angle = 0; // 1 left, 0 front, -1 right
 		this.powL = 0;
 		this.powR = 0;
 		this.speed = 0;
 		this.gyroCoef = 1;
 
+		var that = this;
+
 		board.on("ready", function() {
-			this.ready = true;
+			that.ready = true;
 			console.log("Arduino connecté et prêt !");
 
-			// this.statusLed = new five.Led(13);
-			// this.light = new five.Led(12);
+			// that.statusLed = new five.Led(13);
+			// that.light = new five.Led(12);
 
-			this.motors["right"] = new five.Motor(this.motorConfigs.M1);
-			this.motors["left"] = new five.Motor(this.motorConfigs.M2);
+			// that.motors["right"] = new five.Motor(that.motorConfigs.M1);
+			// that.motors["left"] = new five.Motor(that.motorConfigs.M2);
+			that.accelero = new five.Accelerometer( {controller: "ADXL345"} );
 
-		}.bind(this));
+
+			that.accelero.on("change", function(){
+				// console.log("x:"+this.x+"y:"+this.y);
+				if(that.acceleroReference == null)
+					that.acceleroReference = this.x;
+				else{
+					that.gyroCoef = Math.abs( 1 - Math.abs( (this.x - that.acceleroReference)/1.25 ) );
+								// 1.25 semble être le maximum retourné par l'accéléro chez moi
+					// console.log("Pos:" + that.gyroCoef);
+				}
+			})
+
+		});
 	}
 
 	// Arduino.prototype.setLightPower = function(power) {
