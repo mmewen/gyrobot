@@ -81,12 +81,12 @@
 					break;
 					case "light":
 						settings.light = data.params.value;
-						// todo : idem lumière
+						// logger.debug("Light : " + data.params.value);
+						arduino.setLightPower((data.params.value === true)?settings.lightPow:0 );
 					break;
 					case "lightPow":
 						settings.lightPow = data.params.value;
-						// todo : idem puissance
-						// arduino.lightPow(data.params.value);
+						arduino.setLightPower(settings.lightPow);
 					break;
 					case "angle":
 						// logger.debug("Angle : " + data.params.value);

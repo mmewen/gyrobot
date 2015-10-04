@@ -8,6 +8,7 @@ module.exports = (function () {
 		// this.light = null;
 		this.motors = {};
 		this.motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
+
 		this.accelero = null;
 		this.acceleroReference = null; // angle x par défaut
 
@@ -26,30 +27,30 @@ module.exports = (function () {
 			console.log("Arduino connecté et prêt !");
 
 			// that.statusLed = new five.Led(13);
-			// that.light = new five.Led(12);
+			that.light = new five.Led(9);
 
 			// that.motors["right"] = new five.Motor(that.motorConfigs.M1);
 			// that.motors["left"] = new five.Motor(that.motorConfigs.M2);
-			that.accelero = new five.Accelerometer( {controller: "ADXL345"} );
 
 
-			that.accelero.on("change", function(){
-				// console.log("x:"+this.x+"y:"+this.y);
-				if(that.acceleroReference == null)
-					that.acceleroReference = this.x;
-				else{
-					that.gyroCoef = Math.abs( 1 - Math.abs( (this.x - that.acceleroReference)/1.25 ) );
-								// 1.25 semble être le maximum retourné par l'accéléro chez moi
-					// console.log("Pos:" + that.gyroCoef);
-				}
-			})
+			// that.accelero = new five.Accelerometer( {controller: "ADXL345"} );
+			// that.accelero.on("change", function(){
+			// 	// console.log("x:"+this.x+"y:"+this.y);
+			// 	if(that.acceleroReference == null)
+			// 		that.acceleroReference = this.x;
+			// 	else{
+			// 		that.gyroCoef = Math.abs( 1 - Math.abs( (this.x - that.acceleroReference)/1.25 ) );
+			// 					// 1.25 semble être le maximum retourné par l'accéléro chez moi
+			// 		// console.log("Pos:" + that.gyroCoef);
+			// 	}
+			// });
 
 		});
 	}
 
-	// Arduino.prototype.setLightPower = function(power) {
-	// 	this.light.brightness(power); // on a PWM pin !!
-	// };
+	Arduino.prototype.setLightPower = function(power) {
+		this.light.brightness(power); // on a PWM pin !!
+	};
 
 	Arduino.prototype.setSpeed = function(speed) {
 		if(!this.ready) return false;
@@ -57,11 +58,11 @@ module.exports = (function () {
 		var angleLeft, angleRight;
 
 		if (speed >= 0){
-			this.motors["right"].start(speed*this.gyroCoef*this.powR);
-			this.motors["left"].start(speed*this.gyroCoef*this.powL);
+			this.motors.right.start(speed*this.gyroCoef*this.powR);
+			this.motors.left.start(speed*this.gyroCoef*this.powL);
 		} else {
-			this.motors["right"].reverse(Math.abs(speed)*this.gyroCoef*this.powR);
-			this.motors["left"].reverse(Math.abs(speed)*this.gyroCoef*this.powL);
+			this.motors.right.reverse(Math.abs(speed)*this.gyroCoef*this.powR);
+			this.motors.left.reverse(Math.abs(speed)*this.gyroCoef*this.powL);
 		}
 		return true;
 	};
@@ -70,12 +71,12 @@ module.exports = (function () {
 		if(!this.ready) return false;
 
 		if (motor != "left") { // <=> right or all
-			this.motors["right"].start(speed);
-		};
+			this.motors.right.start(speed);
+		}
 
-		if (motor != "right") { // <=> right or all
-			this.motors["left"].start(speed);
-		};
+		if (motor != "right") { // <=> left or all
+			this.motors.left.start(speed);
+		}
 
 		return true;
 	};
