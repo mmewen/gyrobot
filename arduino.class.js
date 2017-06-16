@@ -20,32 +20,32 @@ module.exports = (function () {
 		this.speed = 0;
 		this.gyroCoef = 1;
 
-		var that = this;
-
 		board.on("ready", function() {
-			that.ready = true;
+			this.ready = true;
 			console.log("Arduino connecté et prêt !");
 
-			// that.statusLed = new five.Led(13);
-			that.light = new five.Led(9);
+			// this.statusLed = new five.Led(13);
+			// this.light = new five.Led(9);
 
-			// that.motors["right"] = new five.Motor(that.motorConfigs.M1);
-			// that.motors["left"] = new five.Motor(that.motorConfigs.M2);
+			this.motors["left"] = new five.Motor(this.motorConfigs.M3);
+			this.motors["leftCoef"] = -1;
+			this.motors["right"] = new five.Motor(this.motorConfigs.M4);
+			this.motors["rightCoef"] = -1;
 
 
-			// that.accelero = new five.Accelerometer( {controller: "ADXL345"} );
-			// that.accelero.on("change", function(){
+			// this.accelero = new five.Accelerometer( {controller: "ADXL345"} );
+			// this.accelero.on("change", function(){
 			// 	// console.log("x:"+this.x+"y:"+this.y);
-			// 	if(that.acceleroReference == null)
-			// 		that.acceleroReference = this.x;
+			// 	if(this.acceleroReference == null)
+			// 		this.acceleroReference = this.x;
 			// 	else{
-			// 		that.gyroCoef = Math.abs( 1 - Math.abs( (this.x - that.acceleroReference)/1.25 ) );
+			// 		this.gyroCoef = Math.abs( 1 - Math.abs( (this.x - this.acceleroReference)/1.25 ) );
 			// 					// 1.25 semble être le maximum retourné par l'accéléro chez moi
-			// 		// console.log("Pos:" + that.gyroCoef);
+			// 		// console.log("Pos:" + this.gyroCoef);
 			// 	}
 			// });
 
-		});
+		}.bind(this));
 	}
 
 	Arduino.prototype.setLightPower = function(power) {
@@ -56,36 +56,52 @@ module.exports = (function () {
 		if(!this.ready) return false;
 
 		var angleLeft, angleRight;
+		var leftSpeed = speed*this.gyroCoef*this.powL * this.motors["leftCoef"];
+		var rightSpeed = speed*this.gyroCoef*this.powR * this.motors["rightCoef"];
 
-		if (speed >= 0){
-			this.motors.right.start(speed*this.gyroCoef*this.powR);
-			this.motors.left.start(speed*this.gyroCoef*this.powL);
+		// console.log("gauche:"+leftSpeed+", droite:"+rightSpeed);
+		if (leftSpeed >= 0){
+			this.motors.left.start(leftSpeed);
+			// console.log("gauche:"+leftSpeed);
 		} else {
-			this.motors.right.reverse(Math.abs(speed)*this.gyroCoef*this.powR);
-			this.motors.left.reverse(Math.abs(speed)*this.gyroCoef*this.powL);
+			leftSpeed *= Math.sign(leftSpeed);
+			this.motors.right.reverse(leftSpeed);
+			// console.log("gauche:"+leftSpeed);
+		}
+
+		if (rightSpeed >= 0){
+			this.motors.right.start(rightSpeed);
+			// console.log("droite:"+rightSpeed);
+		} else {
+			rightSpeed *= Math.sign(rightSpeed);
+			this.motors.left.reverse(rightSpeed);
+			// console.log("droite:"+rightSpeed);
 		}
 		return true;
 	};
 
-	Arduino.prototype.setMotorSpeed = function(motor, speed) { // uniquement pour le débug
-		if(!this.ready) return false;
+	// Arduino.prototype.setMotorSpeed = function(motor, speed) { // uniquement pour le débug
+	// 	if(!this.ready) return false;
 
-		if (motor != "left") { // <=> right or all
-			this.motors.right.start(speed);
-		}
+	// 	if (motor != "left") { // <=> right or all
+	// 		this.motors.right.start(speed);
+	// 	}
 
-		if (motor != "right") { // <=> left or all
-			this.motors.left.start(speed);
-		}
+	// 	if (motor != "right") { // <=> left or all
+	// 		this.motors.left.start(speed);
+	// 	}
 
-		return true;
-	};
+	// 	return true;
+	// };
 
 	Arduino.prototype.setAngle = function(angle) {
+		if(!this.ready) return false;
+
 		this.angle = angle/255.; // in [-1; 1], 1 is left, 0 front and -1 right
 		this.powR = Math.min(1, this.angle+1);
 		this.powL = Math.min(1, -this.angle+1);
 		// console.log("gauche:"+this.powL+", droite:"+this.powR);
+		return true;
 	};
 
 	return Arduino;
