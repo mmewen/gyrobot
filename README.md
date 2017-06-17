@@ -15,10 +15,14 @@ I use some open source projects in the robot:
 * **node.js** - for the backend: communication with webclients (throught websockets), with the Arduino and with the GPIO ports
 * **[johnny-five](https://github.com/rwaldron/johnny-five/)** - a JS framework that uses the Firmata protocol to control the Arduino
 
-## Installation
+## Quick start
 
 ```sh
-$ git clone [git-repo-url] dillinger
+git clone git@github.com:mmewen/gyrobot.git
+sudo apt-get install hostapd udhcpd node-legacy npm
+cd gyrobot
+npm install
+node server.js
 ```
 
 ## Todo
@@ -34,3 +38,4 @@ $ git clone [git-repo-url] dillinger
 
 ## Cool tutorials
 (that helped me do this project :) )
+* [RPI-Wireless-Hotspot on eLinux](http://elinux.org/RPI-Wireless-Hotspot)

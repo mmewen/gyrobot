@@ -1,1 +1,1 @@
-/home/mewen/dev/gyrobot/node_modules/socket.io-client/socket.io.js
+../node_modules/socket.io-client/dist/socket.io.js
