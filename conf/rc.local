@@ -15,9 +15,10 @@
 _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
+  /sbin/ifconfig  | grep '\''inet ad'\'' | tr -s '\'' '\'' | /usr/bin/cut -d '\'' '\'' -f 3 | /usr/bin/cut -d '\'':'\'' -f 2
 fi
 
 # sudo sh /home/pi/coupe15/hokuyo/main.sh
-sudo node /home/pi/gyrobot/server.js
+sudo nodejs /home/pi/gyrobot/server.js
 
 exit 0
