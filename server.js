@@ -95,6 +95,10 @@
 						logger.debug("Vitesse : " + data.params.value);
 						arduino.setSpeed(data.params.value);
 					break;
+                                        case "halt":
+                                                logger.debug("Shutting down");
+                                                // TODO
+                                        break;
 					default:
 						logger.warn("name '"+data.name+"' non reconnu !");
 					break;

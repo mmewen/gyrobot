@@ -9,7 +9,7 @@ socket.order(function (name, params){
 			$("#phareRange").val(params.lightPow);
 		break;
 		case "error":
-			alert("Erreur : " + params.error);
+			// alert("Erreur : " + params.error);
 		break;
 	}
 })
@@ -55,6 +55,9 @@ $("#phareRange").on("change", function(){
 	transmit("lightPow", { value: $("#phareRange").val() });
 });
 
+$("#halt").on("click", function(){
+        transmit("halt", { });
+});
 
 
 
