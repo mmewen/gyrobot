@@ -27,7 +27,7 @@ sudo apt-get install -y nodejs build-essential
 sudo apt-get install nodejs-legacy
 # OR
 # Install on ARMv6 proc (Raspberry Pi)
-#(use cat /proc/cpuinfo to know your ARM version)
+# (use cat /proc/cpuinfo to know your ARM version)
 sudo wget https://nodejs.org/dist/v6.11.0/node-v6.11.0-linux-armv6l.tar.xz
 tar xf node-v6.11.0-linux-armv6l.tar.xz
 sudo cp -r node-v6.11.0-linux-armv6l /usr/local/
@@ -44,11 +44,28 @@ sudo apt-get install hostapd udhcpd apache
 
 # Make a link to the repo
 sudo ln -s ~/gyrobot /var/www/html/
+sudo cp ~/gyrobot/conf/.htaccess /var/www/html/
+
+# Copy conf files
+sudo cp ./conf/hostapd.conf /etc/hostapd/
+sudo cp ./conf/interfaces /etc/network/
+sudo cp ./conf/rc.local     /etc/
+sudo cp ./conf/udhcpd.conf /etc/
+sudo cp ./conf/wpa_supplicant.conf /etc/wpa_supplicant/
+
+# Active htaccess
+sudo nano /etc/apache2/apache2.conf
+# Change lines like this :
+# AllowOverride None
+# into this :
+# AllowOverride All
+sudo service apache2 restart
 
 # Install npm dependencies
 cd gyrobot
 npm install
-node server.js
+
+sudo reboot
 ```
 
 ## Todo
