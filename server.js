@@ -8,7 +8,6 @@
 	// ===== ARDUINO MANAGER =====
 	var arduino = new (require('./arduino.class.js'))();
 
-
 	// ===== STREAM MANAGER =====
 	// Create stream
 
@@ -89,11 +88,11 @@
 						arduino.setLightPower(settings.lightPow);
 					break;
 					case "angle":
-						// logger.debug("Angle : " + data.params.value);
+						logger.debug("Angle : " + data.params.value);
 						arduino.setAngle(data.params.value);
 					break;
 					case "speed":
-						// logger.debug("Vitesse : " + data.params.value);
+						logger.debug("Vitesse : " + data.params.value);
 						arduino.setSpeed(data.params.value);
 					break;
 					default:

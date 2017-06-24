@@ -15,8 +15,8 @@ module.exports = (function () {
 		this.ready = false;
 
 		this.angle = 0; // 1 left, 0 front, -1 right
-		this.powL = 0;
-		this.powR = 0;
+		this.powL = 1;
+		this.powR = 1;
 		this.speed = 0;
 		this.gyroCoef = 1;
 
@@ -29,8 +29,10 @@ module.exports = (function () {
 
 			this.motors["left"] = new five.Motor(this.motorConfigs.M3);
 			this.motors["leftCoef"] = -1;
+			this.motors.left.start(0);
 			this.motors["right"] = new five.Motor(this.motorConfigs.M4);
 			this.motors["rightCoef"] = -1;
+			this.motors.right.start(0);
 
 
 			// this.accelero = new five.Accelerometer( {controller: "ADXL345"} );
@@ -59,9 +61,9 @@ module.exports = (function () {
 		var leftSpeed = speed*this.gyroCoef*this.powL * this.motors["leftCoef"];
 		var rightSpeed = speed*this.gyroCoef*this.powR * this.motors["rightCoef"];
 
-		// console.log("gauche:"+leftSpeed+", droite:"+rightSpeed);
+		console.log("gauche:"+leftSpeed+", droite:"+rightSpeed);
 		if (leftSpeed >= 0){
-			this.motors.left.start(leftSpeed);
+			this.motors.left.forward(leftSpeed);
 			// console.log("gauche:"+leftSpeed);
 		} else {
 			leftSpeed *= Math.sign(leftSpeed);
@@ -70,7 +72,7 @@ module.exports = (function () {
 		}
 
 		if (rightSpeed >= 0){
-			this.motors.right.start(rightSpeed);
+			this.motors.right.forward(rightSpeed);
 			// console.log("droite:"+rightSpeed);
 		} else {
 			rightSpeed *= Math.sign(rightSpeed);
@@ -95,13 +97,13 @@ module.exports = (function () {
 	// };
 
 	Arduino.prototype.setAngle = function(angle) {
-		if(!this.ready) return false;
+		// if(!this.ready) return false;
 
 		this.angle = angle/255.; // in [-1; 1], 1 is left, 0 front and -1 right
 		this.powR = Math.min(1, this.angle+1);
 		this.powL = Math.min(1, -this.angle+1);
 		// console.log("gauche:"+this.powL+", droite:"+this.powR);
-		return true;
+		// return true;
 	};
 
 	return Arduino;

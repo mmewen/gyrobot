@@ -13,7 +13,7 @@ setTimeout(function(){
 
 setTimeout(function(){
 	console.log('2 roues :');
-	if( !a.setSpeed(150) ){
+	if( !a.setSpeed(170) ){
 		console.log("Échoué :/");
 	} else {
 		console.log("Réussi !");
@@ -27,4 +27,4 @@ setTimeout(function(){
 	} else {
 		console.log("Réussi !");
 	}
-}, 8000);
+}, 9000);
